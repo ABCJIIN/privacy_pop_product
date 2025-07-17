@@ -1,0 +1,24 @@
+/* reset*/
+* { font-family: 'Spoqa Han Sans Neo', sans-serif; font-weight:400; font-size:16px; margin: 0; padding: 0; -webkit-box-sizing: border-box; box-sizing: border-box; word-break: keep-all; letter-spacing:-0.4px;} 
+html,body,p, input, select, form, label, mark, ul, ul li, ol, ol li, dl, dl dt, dl dd, img, a, table, h1, h2, h3, h4, h5 { margin:0; padding:0; } 
+caption { position:absolute; overflow:hidden; visibility:hidden; width:0; height:0; font-size:0; line-height:0; } 
+caption p { position:absolute; overflow:hidden; visibility:hidden; width:0; height:0; font-size:0; line-height:0; } 
+a { text-decoration: none; display: inline-block;  } 
+a:hover, a:active, a:visited { text-decoration:none !important; } 
+.wrap { min-width:320px; } 
+.sub_right { z-index:10; } 
+.subtop { transform:translate(-50%,0); left:50%; } 
+fieldset { border: 0; } 
+address { font-style: normal; } 
+li, ul, dl { list-style: none; } 
+button {background-color: transparent;border: 0;cursor: pointer; text-decoration:none;}
+table {border-collapse: collapse;border-spacing: 0;float: none !important;}
+input,textarea,button,a {
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    border-radius:0;
+    -webkit-border-radius:0;
+    -moz-border-radius:0
+}
+/* reset 끝*/

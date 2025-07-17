@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YG-1 브랜드 사이트 쿠키 허용 팝업</title>
+    <link rel="stylesheet" href="./reset.css">
+    <script src="./jquery-3.7.1.min.js"></script>
+    <style>
+        .cookie-pop {
+            overflow: hidden;
+        }
+        .cookie-pop .dim {
+            position: fixed;
+            top: 0;
+            left: 0;
+            zoom: 1;
+            transform: scale(1.25);
+            transform-origin: top left;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+        }
+        .cookie-pop .step01 {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            zoom: 1;
+            transform: translate(-50%, -50%) scale(1.25);
+            width: calc(100% - 40px);
+            max-width: 454px;
+            max-height: 80vh;
+            border-radius: 8px;
+            border: 1px solid #DDDDDD;
+            background: #fff;
+            z-index: 3000;
+        }
+        .cookie-pop .step01 .inner {
+            padding: 25px 33px 33px;
+        }
+        .cookie-pop .step01 .title {
+            margin-bottom: 16px;
+        }
+        .cookie-pop .step01 .title strong {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.5;
+        }
+        .cookie-pop .step01 .info {
+            margin-bottom: 30px;
+            max-height: calc(80vh - 285px);
+            overflow-y: auto;
+        }
+        .cookie-pop .step01 .info p {
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.5;
+        }
+        .cookie-pop .step01 .info p:first-child {
+            margin-bottom: 12px;
+        }
+        .cookie-pop .step01 .btn-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 6px;
+        }
+        .cookie-pop .step01 .btn-wrap button {
+            width: 100%;
+            height: 44px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #fff;
+            background: #222;
+        }
+        .cookie-pop .step01 .btn-wrap button:last-child {
+            margin-top: 14px;
+            color: #000;
+            border: 1px solid #222;
+            background: #fff;
+        }
+        .cookie-pop .step02 {
+            position: fixed;
+            top: 0;
+            right: -150%;
+            zoom: 1;
+            transform: scale(1.25);
+            transform-origin: top right;
+            max-width: 454px;
+            width: 100%;
+            height: calc(var(--vh, 1vh) * 100); /* Safari 대응 */
+            background: #fff;
+            z-index: 3000;
+            transition: all .5s;
+        }
+        .cookie-pop .step02.on {
+            right: 0;
+        }
+        .cookie-pop .step02 .inner {
+            width: 100%;
+            height: 100%;
+            padding: 40px 33px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .cookie-pop .step02 .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .cookie-pop .step02 .title strong {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.5;
+            color: #222;
+        }
+        .cookie-pop .step02 .title .close-btn {
+            width: 20px;
+            height: 20px;
+            background: url(./cookie_close.png) no-repeat center/contain;
+        }
+        .cookie-pop .step02 .item:nth-of-type(1) {
+            margin-bottom: 30px;
+        }
+        .cookie-pop .step02 .item-wrap {
+            max-height: calc((var(--vh, 1vh) * 100) - 302px); /* Safari 대응 */
+            overflow-y: auto;
+        }
+        .cookie-pop .step02 .item .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .cookie-pop .step02 .item .top strong {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.5;
+            color: #222;
+        }
+        .cookie-pop .step02 .item .top span {
+            font-size: 14px;
+            color: #ED1C24;
+        }
+        .cookie-pop .step02 .item .info {
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.5;
+        }
+        .cookie-pop .step02 .btn-wrap {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 6px;
+        }
+        .cookie-pop .step02 .btn-wrap button {
+            width: 100%;
+            height: 44px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #fff;
+            background: #222;
+        }
+        .cookie-pop .step02 .btn-wrap button:first-child {
+            margin-bottom: 2px;
+            color: #000;
+            border: 1px solid #222;
+            background: #fff;
+        }
+
+        /* 토글(스위치) 버튼 */
+        .cookie-pop .pop-switch-wrap {
+            display: inline-flex;
+        }
+        .cookie-pop .pop-switch-wrap label {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .cookie-pop .pop-switch-wrap label input[type="checkbox"] {
+            appearance: none;
+            position: relative;
+            border: 1px solid #222;
+            border-radius: 20px;
+            background: #fff;
+            width: 34px;
+            height: 21px;
+            cursor: pointer;
+        }
+        .cookie-pop .pop-switch-wrap label input[type="checkbox"]::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 3px;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #222;
+            transition: all 0.25s linear;
+            z-index: 1;
+        }
+        .cookie-pop .pop-switch-wrap label input[type="checkbox"]:checked {
+            background-color: #000;
+        }
+        .cookie-pop .pop-switch-wrap label input[type="checkbox"]:checked::before {
+            background: #fff;
+            left: calc(100% - 18px);
+        }
+
+        @media(max-width: 768px) {
+            .cookie-pop .step01 .inner {
+                padding: 25px 20px 20px;
+            }
+            .cookie-pop .step02 .inner {
+                padding: 30px 19px;
+            }
+        }
+    </style>
+</head>
+<body style="zoom: 0.8;">
+    <div class="cookie-pop">
+        <!-- 딤드 배경 -->
+        <div class="dim"></div>
+        <!-- 쿠키 설정 팝업 -->
+        <div class="step01">
+            <div class="inner">
+                <div class="title">
+                    <strong>Çerez Bildirimi</strong>
+                </div>
+                <div class="info">
+                    <p>
+                        Şirketimiz olarak sizlere daha iyi hizmet sunabilmek, site kullanımınızı iyileştirmek, kişiselleştirmek ve reklam/pazarlama faaliyetlerini ilgi alanlarınıza göre özelleştirebilmek için çerezlerden yararlanıyoruz.
+                    </p>
+                    <p>
+                        Çerez ayarlarını yönetmek için “Çerezleri Yönet” seçeneğine, tüm çerezlerin kullanımını onaylamak için “Tümünü Kabul Et”, reddetmek için ise Reddet seçeneğine tıklayabilirsiniz. Sitemizdeki çerezlerle ilgili detaylı bilgi için Çerez Politikası metnini inceleyebilirsiniz.
+                    </p>
+                </div>
+                <div class="btn-wrap">
+                    <!-- 모두 허용 -->
+                    <button type="button">Tümünü Kabul Et</button>
+                    <!-- 모두 거부 -->
+                    <button type="button">Tümünü Reddet</button>
+                    <!-- 쿠키 설정 -->
+                    <button class="set-cookie-btn" type="button">Çerezleri Yönet</button>
+                </div>
+            </div>
+        </div>
+        <!-- 쿠키 사용자 맞춤 설정 팝업 -->
+        <div class="step02">
+            <div class="inner">
+                <div class="con-wrap">
+                    <div class="title">
+                        <strong>Çerezleri Yönet</strong>
+                        <button class="close-btn" type="button"></button>
+                    </div>
+                    <div class="item-wrap">
+                        <div class="item">
+                            <div class="top">
+                                <strong>Zorunlu Çerezler</strong>
+                                <span>Her zaman etkin</span>
+                            </div>
+                            <p class="info">
+                                Bu çerezler, web sitesinin temel işlevlerinin 
+                                (örneğin dil ayarları gibi) düzgün bir şekilde 
+                                çalışabilmesi için gereklidir. Web sitesinin 
+                                işletilmesi için kesinlikle gerekli olup yalnızca 
+                                şirketin dahili sistemleri tarafından yönetilir ve 
+                                kullanıcılar tarafından devre dışı bırakılamazlar.
+                            </p>
+                        </div>
+                        <div class="item">
+                            <div class="top">
+                                <strong>Pazarlama Çerezleri</strong>
+                                <div class="pop-switch-wrap">
+                                    <label>
+                                        <input role="switch" name="switch" type="checkbox"/>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="info">
+                                Bu çerezler, Google Analytics (GA) gibi araçlar aracılığıyla web sitesindeki ziyaretçi sayısını ve kullanıcı davranışlarını analiz etmek için kullanılır.
+                                Hizmet performansını iyileştirmeye veya pazarlama etkinliğini ölçmeye yardımcı olurlar.
+                                Üçüncü taraf çerezleri içerebilirler ve toplanan tüm veriler kimlik belirlemeye olanak tanımayacak şekilde anonim olarak işlenir.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-wrap">
+                    <!-- 선택 허용 -->
+                    <button type="button">Seçilenleri Onayla</button>
+                    <!-- 모두 허용 -->
+                    <button type="button">Tümünü Kabul Et</button>
+                    <!-- 모두 거부 -->
+                    <button type="button">Tümünü Reddet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // vh 단위 보정
+        function setVhUnit() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        setVhUnit();
+        window.addEventListener('resize', setVhUnit);
+
+        $(function () {
+            $(".set-cookie-btn").on("click", function () {
+                setVhUnit(); // 팝업 열기 직전에 다시 계산
+                $(this).closest(".step01").css("z-index", "1000");
+                $(this).closest(".step01").siblings(".step02").addClass("on");
+            });
+
+            $(".cookie-pop .step02 .close-btn").on("click", function () {
+                $(this).closest(".step02").removeClass("on");
+                $(this).closest(".step02").siblings(".step01").css("z-index", "3000");
+            });
+        });
+    </script>
+</body>
+</html>
