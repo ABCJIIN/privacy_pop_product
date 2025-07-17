@@ -9,32 +9,38 @@
     <style>
         .cookie-pop {
             overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            transform: scale(1.25);
+            transform-origin: top left;
+            zoom: 1;
         }
         .cookie-pop .dim {
             position: fixed;
             top: 0;
             left: 0;
-            zoom: 1;
-            transform: scale(1.25);
-            transform-origin: top left;
+            /* zoom: 1; */
+            /* transform: scale(1.25); */
+            /* transform-origin: top left; */
             width: 100vw;
             height: 100vh;
             background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
+            /* z-index: 2000; */
         }
         .cookie-pop .step01 {
             position: fixed;
             top: 50%;
             left: 50%;
-            zoom: 1;
-            transform: translate(-50%, -50%) scale(1.25);
+            /* zoom: 1; */
+            /* transform: translate(-50%, -50%) scale(1.25); */
+            transform: translate(-50%, -50%);
             width: calc(100% - 40px);
             max-width: 454px;
             max-height: 80vh;
             border-radius: 8px;
             border: 1px solid #DDDDDD;
             background: #fff;
-            z-index: 3000;
+            /* z-index: 3000; */
         }
         .cookie-pop .step01 .inner {
             padding: 25px 33px 33px;
@@ -86,12 +92,13 @@
             background: #fff;
         }
         .cookie-pop .step02 {
+            /* display: none; */
             position: fixed;
             top: 0;
             right: -150%;
-            zoom: 1;
-            transform: scale(1.25);
-            transform-origin: top right;
+            /* zoom: 1; */
+            /* transform: scale(1.25); */
+            /* transform-origin: top right; */
             max-width: 454px;
             width: 100%;
             height: calc(var(--vh, 1vh) * 100); /* Safari 대응 */
@@ -226,18 +233,19 @@
 
         @media(max-width: 768px) {
             .cookie-pop .step01 {
-                width: calc(80% - 40px);
-                max-height: 75vh;
+                /* width: calc(80% - 40px); */
+                /* transform: translate(-50%, -50%) scale(1.25); */
+                /* max-height: 64vh; */
             }
             .cookie-pop .step01 .inner {
                 padding: 25px 20px 20px;
             }
-            .cookie-pop .step01 .info {
-                max-height: calc(75vh - 285px);
-            }
-            .cookie-pop .step02 {
+            /* .cookie-pop .step01 .info {
+                max-height: calc(64vh - 285px);
+            } */
+            /* .cookie-pop .step02 {
                 width: 80%;
-            }
+            } */
             .cookie-pop .step02 .inner {
                 padding: 30px 19px;
             }
